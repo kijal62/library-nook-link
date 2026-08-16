@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useSmartSeat } from "@/lib/smartseat/store";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "SmartSeat — Smart Library Seat Management" },
