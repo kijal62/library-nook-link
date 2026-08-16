@@ -139,12 +139,12 @@ function LandingPage() {
                     className={`seat-tile flex aspect-square items-center justify-center rounded-md border text-[10px] ${
                       seat.status === "available"
                         ? "border-available/40 bg-available-soft/40 text-available"
-                        : seat.status === "onBreak"
+                        : seat.status === "on-break"
                           ? "border-onbreak/40 bg-onbreak-soft/40 text-onbreak"
                           : "border-occupied/40 bg-occupied-soft/40 text-occupied"
                     }`}
                   >
-                    {seat.label}
+                    {seat.id}
                   </div>
                 ))}
               </div>
