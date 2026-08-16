@@ -38,7 +38,7 @@ function DashboardPage() {
   const [selected, setSelected] = useState<Seat | null>(null);
 
   useEffect(() => {
-    if (!user) navigate({ to: "/" });
+    if (!user) navigate({ to: "/login" });
   }, [user, navigate]);
 
   const live = selected ? (seats.find((s) => s.id === selected.id) ?? null) : null;

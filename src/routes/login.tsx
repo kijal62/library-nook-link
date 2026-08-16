@@ -10,13 +10,13 @@ import { useSmartSeat } from "@/lib/smartseat/store";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "SmartSeat — Smart Library Seat Management" },
+      { title: "Sign in — SmartSeat" },
       {
         name: "description",
         content:
           "Sign in to SmartSeat to see live library seat availability, claim seats by scanning their QR/NFC tag, and hold your seat during short breaks.",
       },
-      { property: "og:title", content: "SmartSeat — Smart Library Seat Management" },
+      { property: "og:title", content: "Sign in — SmartSeat" },
       {
         property: "og:description",
         content:
