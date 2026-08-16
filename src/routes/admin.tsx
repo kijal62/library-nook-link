@@ -38,7 +38,7 @@ function AdminPage() {
   const [selected, setSelected] = useState<Seat | null>(null);
 
   useEffect(() => {
-    if (!user) navigate({ to: "/" });
+    if (!user) navigate({ to: "/login" });
     else if (user.role !== "admin") navigate({ to: "/dashboard" });
   }, [user, navigate]);
 

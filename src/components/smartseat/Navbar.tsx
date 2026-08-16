@@ -55,7 +55,7 @@ export function Navbar() {
                 size="sm"
                 onClick={() => {
                   logout();
-                  navigate({ to: "/" });
+                  navigate({ to: "/login" });
                 }}
               >
                 <LogOut className="size-4" />
