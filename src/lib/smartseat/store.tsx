@@ -274,12 +274,10 @@ export function SmartSeatProvider({ children }: { children: ReactNode }) {
         return { ok: false, message: "Enter a valid email and a password of 4+ characters." };
       }
       const isAdmin = email.toLowerCase().startsWith("admin");
-      const name = email
-        .split("@")[0]
-        .replace(/[._-]+/g, " ")
-        .replace(/\b\w/g, (c) => c.toUpperCase());
+      const localPart = email.split("@")[0] ?? "student";
+      const name = localPart.replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
       commit((prev) => {
-        const id = isAdmin ? "admin-1" : `stu-${email.split("@")[0].toLowerCase()}`;
+        const id = isAdmin ? "admin-1" : `stu-${localPart.toLowerCase()}`;
         const held = prev.seats.find((s) => s.occupiedBy === id);
         return {
           ...prev,
