@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Armchair, MoveRight, Nfc, QrCode, ShieldCheck, Timer } from "lucide-react";
+import { MoveRight, Nfc, QrCode, ShieldCheck, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookIntro } from "@/components/smartseat/BookIntro";
 import { useSeatSync } from "@/lib/smartseat/store";
+import logo from "@/assets/seatsync-logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
