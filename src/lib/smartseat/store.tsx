@@ -19,7 +19,7 @@ import {
 } from "./types";
 
 /**
- * Mock "backend" for the SmartSeat prototype.
+ * Mock "backend" for the SeatSync prototype.
  * State lives in localStorage and syncs across tabs via the `storage` event,
  * which stands in for the Socket.io `seatUpdated` broadcast until the
  * Express + MongoDB backend is wired up.
@@ -207,9 +207,9 @@ type Ctx = {
   resetDemo: () => void;
 };
 
-const SmartSeatContext = createContext<Ctx | null>(null);
+const SeatSyncContext = createContext<Ctx | null>(null);
 
-export function SmartSeatProvider({ children }: { children: ReactNode }) {
+export function SeatSyncProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<State>(() => seededState());
   const [now, setNow] = useState(() => Date.now());
   const busy = useRef(false);
@@ -567,12 +567,12 @@ export function SmartSeatProvider({ children }: { children: ReactNode }) {
     };
   }, [state, now, login, logout, tap, hold, release, report, forceRelease, resetDemo]);
 
-  return <SmartSeatContext.Provider value={value}>{children}</SmartSeatContext.Provider>;
+  return <SeatSyncContext.Provider value={value}>{children}</SeatSyncContext.Provider>;
 }
 
-export function useSmartSeat() {
-  const ctx = useContext(SmartSeatContext);
-  if (!ctx) throw new Error("useSmartSeat must be used inside SmartSeatProvider");
+export function useSeatSync() {
+  const ctx = useContext(SeatSyncContext);
+  if (!ctx) throw new Error("useSeatSync must be used inside SeatSyncProvider");
   return ctx;
 }
 

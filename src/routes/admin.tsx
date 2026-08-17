@@ -10,19 +10,19 @@ import { SeatDetails } from "@/components/smartseat/SeatDetails";
 import { SeatGrid } from "@/components/smartseat/SeatGrid";
 import { StatsCard } from "@/components/smartseat/StatsCard";
 import { StatusLegend } from "@/components/smartseat/StatusLegend";
-import { formatTime, useSmartSeat } from "@/lib/smartseat/store";
+import { formatTime, useSeatSync } from "@/lib/smartseat/store";
 import type { Seat } from "@/lib/smartseat/types";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Librarian Dashboard — SmartSeat" },
+      { title: "Librarian Dashboard — SeatSync" },
       {
         name: "description",
         content:
-          "Librarian tools for SmartSeat: monitor seat occupancy, override statuses, force-release seats and review session history.",
+          "Librarian tools for SeatSync: monitor seat occupancy, override statuses, force-release seats and review session history.",
       },
-      { property: "og:title", content: "Librarian Dashboard — SmartSeat" },
+      { property: "og:title", content: "Librarian Dashboard — SeatSync" },
       {
         property: "og:description",
         content: "Monitor occupancy, handle reported empty seats and force-release library seats.",
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 function AdminPage() {
-  const { user, seats, stats, sessions, activity, now, forceRelease } = useSmartSeat();
+  const { user, seats, stats, sessions, activity, now, forceRelease } = useSeatSync();
   const navigate = useNavigate();
   const [selected, setSelected] = useState<Seat | null>(null);
 

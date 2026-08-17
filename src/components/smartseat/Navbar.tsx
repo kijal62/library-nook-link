@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Armchair, LogOut, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useSmartSeat } from "@/lib/smartseat/store";
+import { useSeatSync } from "@/lib/smartseat/store";
 
 export function Navbar() {
-  const { user, logout, resetDemo } = useSmartSeat();
+  const { user, logout, resetDemo } = useSeatSync();
   const navigate = useNavigate();
 
   return (

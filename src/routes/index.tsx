@@ -3,18 +3,18 @@ import { useState } from "react";
 import { Armchair, MoveRight, Nfc, QrCode, ShieldCheck, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookIntro } from "@/components/smartseat/BookIntro";
-import { useSmartSeat } from "@/lib/smartseat/store";
+import { useSeatSync } from "@/lib/smartseat/store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SmartSeat — Every Library Seat, Accounted For" },
+      { title: "SeatSync — Every Library Seat, Accounted For" },
       {
         name: "description",
         content:
-          "SmartSeat turns the library seat ledger into a live map: QR/NFC seat claiming, 30-minute break holds, and automatic release of abandoned seats.",
+          "SeatSync turns the library seat ledger into a live map: QR/NFC seat claiming, 30-minute break holds, and automatic release of abandoned seats.",
       },
-      { property: "og:title", content: "SmartSeat — Every Library Seat, Accounted For" },
+      { property: "og:title", content: "SeatSync — Every Library Seat, Accounted For" },
       {
         property: "og:description",
         content:
@@ -42,13 +42,13 @@ const chapters = [
     index: "Chapter III",
     icon: ShieldCheck,
     title: "The ledger closes itself",
-    text: "Miss your return window and SmartSeat releases the seat automatically, so the next reader walks straight in.",
+    text: "Miss your return window and SeatSync releases the seat automatically, so the next reader walks straight in.",
   },
 ];
 
 function LandingPage() {
   const [introDone, setIntroDone] = useState(false);
-  const { seats, stats, user } = useSmartSeat();
+  const { seats, stats, user } = useSeatSync();
   const preview = seats.slice(0, 24);
 
   return (
@@ -94,7 +94,7 @@ function LandingPage() {
                 <span className="text-primary">rewritten every second.</span>
               </h1>
               <p className="mt-5 max-w-xl text-muted-foreground">
-                Paper registers lie. Bags on chairs lie. SmartSeat binds every desk to a physical
+                Paper registers lie. Bags on chairs lie. SeatSync binds every desk to a physical
                 tag, so the map in your pocket matches the room you walk into.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -196,7 +196,7 @@ function LandingPage() {
 
         <footer className="border-t border-border/70 py-8">
           <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-4 text-xs text-muted-foreground">
-            <p>SmartSeat · Smart Library Seat Management</p>
+            <p>SeatSync · Smart Library Seat Management</p>
             <p className="font-mono">Prototype · demo data only</p>
           </div>
         </footer>

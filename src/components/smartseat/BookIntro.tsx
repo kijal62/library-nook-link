@@ -69,7 +69,7 @@ export function BookIntro({ onDone }: { onDone: () => void }) {
               <span className="book-spine" aria-hidden />
               <span className="book-ribbon" aria-hidden />
               <Armchair className="size-7 text-primary" />
-              <h2 className="font-display mt-4 text-3xl font-semibold">SmartSeat</h2>
+              <h2 className="font-display mt-4 text-3xl font-semibold">SeatSync</h2>
               <p className="mt-2 font-mono text-[10px] tracking-[0.24em] uppercase opacity-80">
                 Seat ledger · vol. one
               </p>

@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { formatTime, useSmartSeat, type ActionResult } from "@/lib/smartseat/store";
+import { formatTime, useSeatSync, type ActionResult } from "@/lib/smartseat/store";
 import { BREAK_MINUTES, MAX_BREAKS, type Seat } from "@/lib/smartseat/types";
 import { BreakTimer } from "./BreakTimer";
 import { ScanSimulator } from "./ScanSimulator";
@@ -32,7 +32,7 @@ export function SeatDetails({
   seat: Seat | null;
   onOpenChange: (open: boolean) => void;
 }) {
-  const { user, now, mySeat, tap, hold, release, report, forceRelease } = useSmartSeat();
+  const { user, now, mySeat, tap, hold, release, report, forceRelease } = useSeatSync();
   if (!seat) return null;
 
   const isMine = !!user && seat.occupiedBy === user.id;

@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
-import { SmartSeatProvider } from "@/lib/smartseat/store";
+import { SeatSyncProvider } from "@/lib/smartseat/store";
 
 function NotFoundComponent() {
   return (
@@ -79,13 +79,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SmartSeat — Smart Library Seat Management" },
+      { title: "SeatSync — Smart Library Seat Management" },
       {
         name: "description",
         content:
-          "SmartSeat is a real-time library seat management system with QR/NFC seat claiming, break holds and automatic release.",
+          "SeatSync is a real-time library seat management system with QR/NFC seat claiming, break holds and automatic release.",
       },
-      { property: "og:title", content: "SmartSeat — Smart Library Seat Management" },
+      { property: "og:title", content: "SeatSync — Smart Library Seat Management" },
       {
         property: "og:description",
         content:
@@ -133,11 +133,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SmartSeatProvider>
+      <SeatSyncProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         <Toaster position="top-center" richColors />
-      </SmartSeatProvider>
+      </SeatSyncProvider>
     </QueryClientProvider>
   );
 }

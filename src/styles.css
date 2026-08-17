@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * SmartSeat design system — warm "library at night" palette.
+ * SeatSync design system — warm "library at night" palette.
  * All colors are oklch semantic tokens. Never hardcode colors in components.
  */
 
