@@ -4,7 +4,7 @@ import { MoveRight, Nfc, QrCode, ShieldCheck, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookIntro } from "@/components/smartseat/BookIntro";
 import { useSeatSync } from "@/lib/smartseat/store";
-import logo from "@/assets/seatsync-logo.png";
+import mark from "@/assets/seatsync-mark.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -60,13 +60,10 @@ function LandingPage() {
         <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
             <Link to="/" className="flex items-center gap-2">
-              <img
-                src={logo}
-                alt="SeatSync logo"
-                width={1152}
-                height={576}
-                className="h-9 w-auto"
-              />
+              <img src={mark} alt="SeatSync" width={816} height={816} className="size-9" />
+              <span className="font-display text-lg font-semibold tracking-tight">
+                <span className="text-primary">Seat</span>Sync
+              </span>
             </Link>
             <nav className="ml-auto flex items-center gap-2">
               <Button asChild variant="ghost" size="sm">

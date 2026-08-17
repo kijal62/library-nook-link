@@ -138,7 +138,7 @@ function DashboardPage() {
           </section>
         ) : (
           <p className="mt-6 rounded-xl border border-border/70 bg-secondary/40 p-4 text-sm text-muted-foreground">
-            You don't hold a seat yet. Pick a green seat below, walk to it, and scan its QR/NFC tag
+            You don't hold a seat yet. Pick an available seat below, walk to it, and scan its QR/NFC tag
             to claim it.
           </p>
         )}
