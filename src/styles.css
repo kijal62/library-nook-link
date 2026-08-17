@@ -151,8 +151,8 @@
 /* ================= Book-opening intro ================= */
 .book-intro {
   background:
-    radial-gradient(60rem 40rem at 50% 45%, oklch(0.9 0.06 155 / 0.7), transparent 70%),
-    radial-gradient(ellipse at center, oklch(0.995 0.006 150), oklch(0.96 0.02 155));
+    radial-gradient(60rem 40rem at 50% 45%, oklch(0.4 0.15 26 / 0.55), transparent 70%),
+    radial-gradient(ellipse at center, oklch(0.15 0.012 25), oklch(0.09 0.008 25));
   transition:
     opacity 550ms ease,
     transform 550ms ease;
@@ -166,11 +166,11 @@
   position: absolute;
   inset: -20%;
   background-image:
-    radial-gradient(2px 2px at 20% 30%, oklch(0.55 0.145 155 / 0.35), transparent 60%),
-    radial-gradient(1.5px 1.5px at 70% 20%, oklch(0.55 0.145 155 / 0.3), transparent 60%),
-    radial-gradient(2px 2px at 45% 75%, oklch(0.55 0.145 155 / 0.25), transparent 60%),
-    radial-gradient(1.5px 1.5px at 85% 65%, oklch(0.55 0.145 155 / 0.3), transparent 60%),
-    radial-gradient(1.5px 1.5px at 12% 80%, oklch(0.55 0.145 155 / 0.22), transparent 60%);
+    radial-gradient(2px 2px at 20% 30%, oklch(0.58 0.225 26 / 0.35), transparent 60%),
+    radial-gradient(1.5px 1.5px at 70% 20%, oklch(0.58 0.225 26 / 0.3), transparent 60%),
+    radial-gradient(2px 2px at 45% 75%, oklch(0.58 0.225 26 / 0.25), transparent 60%),
+    radial-gradient(1.5px 1.5px at 85% 65%, oklch(0.58 0.225 26 / 0.3), transparent 60%),
+    radial-gradient(1.5px 1.5px at 12% 80%, oklch(0.58 0.225 26 / 0.22), transparent 60%);
   animation: dust-drift 9s linear infinite alternate;
 }
 @keyframes dust-drift {
@@ -215,7 +215,7 @@
   position: absolute;
   inset: -18%;
   border-radius: 50%;
-  background: radial-gradient(circle, oklch(0.55 0.145 155 / 0.22), transparent 65%);
+  background: radial-gradient(circle, oklch(0.58 0.225 26 / 0.22), transparent 65%);
   opacity: 0;
   animation: book-glow-in 1.4s 1.2s ease forwards;
 }
@@ -228,12 +228,12 @@
   position: absolute;
   inset: 0;
   border-radius: 0.15rem 0.4rem 0.4rem 0.15rem;
-  background: oklch(1 0 0);
+  background: oklch(0.19 0.014 25);
   box-shadow:
-    2px 2px 0 oklch(0.97 0.012 155),
-    4px 4px 0 oklch(0.94 0.02 155),
-    6px 6px 0 oklch(0.9 0.03 155),
-    0 24px 50px oklch(0.4 0.06 155 / 0.28);
+    2px 2px 0 oklch(0.24 0.016 25),
+    4px 4px 0 oklch(0.28 0.018 25),
+    6px 6px 0 oklch(0.32 0.02 25),
+    0 24px 50px oklch(0 0 0 / 0.6);
 }
 .book-inner-page {
   position: absolute;
@@ -244,11 +244,11 @@
   justify-content: center;
   padding: 2rem 1.75rem;
   text-align: center;
-  color: oklch(0.26 0.05 158);
+  color: oklch(0.95 0.008 30);
   border-radius: 0.15rem 0.4rem 0.4rem 0.15rem;
   background:
-    linear-gradient(90deg, oklch(0.88 0.045 155 / 0.6), transparent 14%),
-    oklch(1 0 0);
+    linear-gradient(90deg, oklch(0.58 0.225 26 / 0.35), transparent 14%),
+    oklch(0.19 0.014 25);
 
   opacity: 0;
   animation: page-text-in 900ms 1.9s ease forwards;
@@ -267,7 +267,7 @@
   position: absolute;
   inset: 0;
   border-radius: 0.15rem 0.4rem 0.4rem 0.15rem;
-  background: linear-gradient(105deg, transparent 30%, oklch(1 0 0 / 0.75) 50%, transparent 70%);
+  background: linear-gradient(105deg, transparent 30%, oklch(0.95 0.02 30 / 0.35) 50%, transparent 70%);
   opacity: 0;
   animation: page-flare 1.5s 2.1s ease-out forwards;
   pointer-events: none;
@@ -316,18 +316,18 @@
   text-align: center;
 }
 .book-front {
-  color: oklch(0.99 0.008 150);
+  color: oklch(0.98 0.005 30);
   background:
     linear-gradient(135deg, oklch(1 0 0 / 0.1), transparent 42%),
-    linear-gradient(160deg, oklch(0.55 0.145 155), oklch(0.36 0.09 158) 78%);
+    linear-gradient(160deg, oklch(0.58 0.225 26), oklch(0.13 0.01 25) 78%);
   box-shadow:
     inset 0 0 0 1px oklch(1 0 0 / 0.35),
-    inset 0 0 46px oklch(0.2 0.05 158 / 0.35);
+    inset 0 0 46px oklch(0 0 0 / 0.55);
 }
 .book-back {
   transform: rotateY(180deg);
-  background: oklch(1 0 0);
-  box-shadow: inset 0 0 0 1px oklch(0.9 0.022 155);
+  background: oklch(0.19 0.014 25);
+  box-shadow: inset 0 0 0 1px oklch(0.31 0.02 25);
 }
 .book-frame {
   position: absolute;
@@ -373,7 +373,7 @@
   width: 17rem;
   height: 1.6rem;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, oklch(0.4 0.06 155 / 0.3), transparent 72%);
+  background: radial-gradient(ellipse at center, oklch(0 0 0 / 0.65), transparent 72%);
 }
 
 @media (max-width: 480px) {
