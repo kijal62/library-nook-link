@@ -56,34 +56,34 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.17 0.021 264);
-  --foreground: oklch(0.965 0.008 90);
-  --card: oklch(0.222 0.024 264);
-  --card-foreground: oklch(0.965 0.008 90);
-  --popover: oklch(0.21 0.024 264);
-  --popover-foreground: oklch(0.965 0.008 90);
-  --primary: oklch(0.79 0.148 78);
-  --primary-foreground: oklch(0.2 0.03 60);
-  --secondary: oklch(0.28 0.028 264);
-  --secondary-foreground: oklch(0.94 0.008 90);
-  --muted: oklch(0.27 0.024 264);
-  --muted-foreground: oklch(0.7 0.022 260);
-  --accent: oklch(0.31 0.036 264);
-  --accent-foreground: oklch(0.96 0.008 90);
-  --destructive: oklch(0.61 0.216 20);
-  --destructive-foreground: oklch(0.98 0.006 90);
-  --border: oklch(0.32 0.026 264);
-  --input: oklch(0.32 0.026 264);
-  --ring: oklch(0.79 0.148 78);
-  --available: oklch(0.74 0.166 152);
-  --available-foreground: oklch(0.2 0.04 152);
-  --available-soft: oklch(0.35 0.07 158);
-  --occupied: oklch(0.65 0.2 22);
-  --occupied-foreground: oklch(0.98 0.01 40);
-  --occupied-soft: oklch(0.34 0.09 25);
-  --onbreak: oklch(0.83 0.16 88);
-  --onbreak-foreground: oklch(0.24 0.05 70);
-  --onbreak-soft: oklch(0.37 0.075 80);
+  --background: oklch(0.995 0.006 150);
+  --foreground: oklch(0.24 0.045 158);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.045 158);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.045 158);
+  --primary: oklch(0.55 0.145 155);
+  --primary-foreground: oklch(0.99 0.008 150);
+  --secondary: oklch(0.96 0.022 155);
+  --secondary-foreground: oklch(0.3 0.05 158);
+  --muted: oklch(0.965 0.016 155);
+  --muted-foreground: oklch(0.5 0.03 158);
+  --accent: oklch(0.93 0.04 155);
+  --accent-foreground: oklch(0.28 0.05 158);
+  --destructive: oklch(0.58 0.2 25);
+  --destructive-foreground: oklch(0.99 0.005 90);
+  --border: oklch(0.9 0.022 155);
+  --input: oklch(0.9 0.022 155);
+  --ring: oklch(0.55 0.145 155);
+  --available: oklch(0.53 0.15 152);
+  --available-foreground: oklch(0.99 0.008 150);
+  --available-soft: oklch(0.9 0.075 155);
+  --occupied: oklch(0.52 0.19 25);
+  --occupied-foreground: oklch(0.99 0.01 40);
+  --occupied-soft: oklch(0.92 0.055 30);
+  --onbreak: oklch(0.6 0.13 80);
+  --onbreak-foreground: oklch(0.99 0.01 90);
+  --onbreak-soft: oklch(0.93 0.07 88);
 }
 
 @layer base {
@@ -95,10 +95,10 @@
     background-color: var(--color-background);
     background-image: radial-gradient(
         70rem 40rem at 88% -12%,
-        oklch(0.79 0.148 78 / 0.12),
+        oklch(0.55 0.145 155 / 0.1),
         transparent 65%
       ),
-      radial-gradient(50rem 35rem at 5% 0%, oklch(0.74 0.166 152 / 0.08), transparent 60%);
+      radial-gradient(50rem 35rem at 5% 0%, oklch(0.53 0.15 152 / 0.07), transparent 60%);
     background-attachment: fixed;
     color: var(--color-foreground);
     font-family: var(--font-sans);
