@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Armchair } from "lucide-react";
+import mark from "@/assets/seatsync-mark.png";
 
 /**
  * Cinematic "book opening" intro: a hardbound library ledger rises out of the dark,
@@ -68,12 +68,14 @@ export function BookIntro({ onDone }: { onDone: () => void }) {
               <span className="book-frame" aria-hidden />
               <span className="book-spine" aria-hidden />
               <span className="book-ribbon" aria-hidden />
-              <Armchair className="size-7 text-primary" />
-              <h2 className="font-display mt-4 text-3xl font-semibold">SmartSeat</h2>
+              <img src={mark} alt="" width={816} height={816} className="size-16" aria-hidden />
+              <h2 className="font-display mt-4 text-3xl font-semibold">
+                Seat<span className="opacity-70">Sync</span>
+              </h2>
               <p className="mt-2 font-mono text-[10px] tracking-[0.24em] uppercase opacity-80">
                 Seat ledger · vol. one
               </p>
-              <span className="mt-6 rounded border border-dashed border-primary/50 px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
+              <span className="mt-6 rounded border border-dashed border-primary-foreground/50 px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
                 tap to open
               </span>
             </div>

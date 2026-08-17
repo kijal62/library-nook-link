@@ -1,20 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Armchair, MoveRight, Nfc, QrCode, ShieldCheck, Timer } from "lucide-react";
+import { MoveRight, Nfc, QrCode, ShieldCheck, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookIntro } from "@/components/smartseat/BookIntro";
-import { useSmartSeat } from "@/lib/smartseat/store";
+import { useSeatSync } from "@/lib/smartseat/store";
+import mark from "@/assets/seatsync-mark.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SmartSeat — Every Library Seat, Accounted For" },
+      { title: "SeatSync — Every Library Seat, Accounted For" },
       {
         name: "description",
         content:
-          "SmartSeat turns the library seat ledger into a live map: QR/NFC seat claiming, 30-minute break holds, and automatic release of abandoned seats.",
+          "SeatSync turns the library seat ledger into a live map: QR/NFC seat claiming, 30-minute break holds, and automatic release of abandoned seats.",
       },
-      { property: "og:title", content: "SmartSeat — Every Library Seat, Accounted For" },
+      { property: "og:title", content: "SeatSync — Every Library Seat, Accounted For" },
       {
         property: "og:description",
         content:
@@ -42,13 +43,13 @@ const chapters = [
     index: "Chapter III",
     icon: ShieldCheck,
     title: "The ledger closes itself",
-    text: "Miss your return window and SmartSeat releases the seat automatically, so the next reader walks straight in.",
+    text: "Miss your return window and SeatSync releases the seat automatically, so the next reader walks straight in.",
   },
 ];
 
 function LandingPage() {
   const [introDone, setIntroDone] = useState(false);
-  const { seats, stats, user } = useSmartSeat();
+  const { seats, stats, user } = useSeatSync();
   const preview = seats.slice(0, 24);
 
   return (
@@ -58,14 +59,12 @@ function LandingPage() {
       <div className={introDone ? "site-reveal" : "opacity-0"}>
         <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
-            <span className="flex items-center gap-2">
-              <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Armchair className="size-5" />
-              </span>
+            <Link to="/" className="flex items-center gap-2">
+              <img src={mark} alt="SeatSync" width={816} height={816} className="size-9" />
               <span className="font-display text-lg font-semibold tracking-tight">
-                Smart<span className="text-primary">Seat</span>
+                <span className="text-primary">Seat</span>Sync
               </span>
-            </span>
+            </Link>
             <nav className="ml-auto flex items-center gap-2">
               <Button asChild variant="ghost" size="sm">
                 <Link to={user ? "/dashboard" : "/login"}>
@@ -94,7 +93,7 @@ function LandingPage() {
                 <span className="text-primary">rewritten every second.</span>
               </h1>
               <p className="mt-5 max-w-xl text-muted-foreground">
-                Paper registers lie. Bags on chairs lie. SmartSeat binds every desk to a physical
+                Paper registers lie. Bags on chairs lie. SeatSync binds every desk to a physical
                 tag, so the map in your pocket matches the room you walk into.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -149,7 +148,8 @@ function LandingPage() {
                 ))}
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
-                Green is genuinely empty. Amber is someone mid-break with minutes left on the clock.
+                Pale tiles are genuinely empty. Red is taken, amber is someone mid-break with
+                minutes left on the clock.
               </p>
             </div>
           </section>
@@ -196,7 +196,7 @@ function LandingPage() {
 
         <footer className="border-t border-border/70 py-8">
           <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-4 text-xs text-muted-foreground">
-            <p>SmartSeat · Smart Library Seat Management</p>
+            <p>SeatSync · Smart Library Seat Management</p>
             <p className="font-mono">Prototype · demo data only</p>
           </div>
         </footer>

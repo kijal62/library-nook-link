@@ -10,19 +10,19 @@ import { SeatDetails } from "@/components/smartseat/SeatDetails";
 import { SeatGrid } from "@/components/smartseat/SeatGrid";
 import { StatsCard } from "@/components/smartseat/StatsCard";
 import { StatusLegend } from "@/components/smartseat/StatusLegend";
-import { formatTime, useSmartSeat } from "@/lib/smartseat/store";
+import { formatTime, useSeatSync } from "@/lib/smartseat/store";
 import { BREAK_MINUTES, MAX_BREAKS, type Seat } from "@/lib/smartseat/types";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Live Seat Map — SmartSeat Library" },
+      { title: "Live Seat Map — SeatSync Library" },
       {
         name: "description",
         content:
-          "Real-time SmartSeat dashboard: available, occupied and on-break library seats, with QR/NFC seat claiming and break timers.",
+          "Real-time SeatSync dashboard: available, occupied and on-break library seats, with QR/NFC seat claiming and break timers.",
       },
-      { property: "og:title", content: "Live Seat Map — SmartSeat Library" },
+      { property: "og:title", content: "Live Seat Map — SeatSync Library" },
       {
         property: "og:description",
         content: "See which library seats are truly free and claim one by scanning its desk tag.",
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function DashboardPage() {
-  const { user, seats, stats, mySeat, now, hold, release, tap } = useSmartSeat();
+  const { user, seats, stats, mySeat, now, hold, release, tap } = useSeatSync();
   const navigate = useNavigate();
   const [selected, setSelected] = useState<Seat | null>(null);
 
@@ -138,7 +138,7 @@ function DashboardPage() {
           </section>
         ) : (
           <p className="mt-6 rounded-xl border border-border/70 bg-secondary/40 p-4 text-sm text-muted-foreground">
-            You don't hold a seat yet. Pick a green seat below, walk to it, and scan its QR/NFC tag
+            You don't hold a seat yet. Pick an available seat below, walk to it, and scan its QR/NFC tag
             to claim it.
           </p>
         )}

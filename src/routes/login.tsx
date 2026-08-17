@@ -5,18 +5,18 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSmartSeat } from "@/lib/smartseat/store";
+import { useSeatSync } from "@/lib/smartseat/store";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign in — SmartSeat" },
+      { title: "Sign in — SeatSync" },
       {
         name: "description",
         content:
-          "Sign in to SmartSeat to see live library seat availability, claim seats by scanning their QR/NFC tag, and hold your seat during short breaks.",
+          "Sign in to SeatSync to see live library seat availability, claim seats by scanning their QR/NFC tag, and hold your seat during short breaks.",
       },
-      { property: "og:title", content: "Sign in — SmartSeat" },
+      { property: "og:title", content: "Sign in — SeatSync" },
       {
         property: "og:description",
         content:
@@ -34,7 +34,7 @@ const highlights = [
 ];
 
 function LoginPage() {
-  const { login, user } = useSmartSeat();
+  const { login, user } = useSeatSync();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,7 +69,7 @@ function LoginPage() {
           Every empty seat, <span className="text-primary">actually available</span>.
         </h1>
         <p className="mt-4 max-w-lg text-muted-foreground">
-          SmartSeat links each physical desk to a QR/NFC tag, so a seat is only occupied when someone
+          SeatSync links each physical desk to a QR/NFC tag, so a seat is only occupied when someone
           is really sitting there. Take a break, keep your seat for 30 minutes, and the system frees
           it automatically if you don't come back.
         </p>
