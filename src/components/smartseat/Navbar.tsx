@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Armchair, LogOut, RotateCcw } from "lucide-react";
+import { LogOut, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSeatSync } from "@/lib/smartseat/store";
+import logo from "@/assets/seatsync-logo.png";
 
 export function Navbar() {
   const { user, logout, resetDemo } = useSeatSync();
@@ -11,12 +12,13 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
         <Link to="/dashboard" className="flex items-center gap-2">
-          <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Armchair className="size-5" />
-          </span>
-          <span className="font-display text-lg font-semibold tracking-tight">
-            Smart<span className="text-primary">Seat</span>
-          </span>
+          <img
+            src={logo}
+            alt="SeatSync logo"
+            width={1152}
+            height={576}
+            className="h-9 w-auto"
+          />
         </Link>
 
         {user ? (

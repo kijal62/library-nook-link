@@ -58,14 +58,15 @@ function LandingPage() {
       <div className={introDone ? "site-reveal" : "opacity-0"}>
         <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
-            <span className="flex items-center gap-2">
-              <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Armchair className="size-5" />
-              </span>
-              <span className="font-display text-lg font-semibold tracking-tight">
-                Smart<span className="text-primary">Seat</span>
-              </span>
-            </span>
+            <Link to="/" className="flex items-center gap-2">
+              <img
+                src={logo}
+                alt="SeatSync logo"
+                width={1152}
+                height={576}
+                className="h-9 w-auto"
+              />
+            </Link>
             <nav className="ml-auto flex items-center gap-2">
               <Button asChild variant="ghost" size="sm">
                 <Link to={user ? "/dashboard" : "/login"}>
@@ -149,7 +150,8 @@ function LandingPage() {
                 ))}
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
-                Green is genuinely empty. Amber is someone mid-break with minutes left on the clock.
+                Pale tiles are genuinely empty. Red is taken, amber is someone mid-break with
+                minutes left on the clock.
               </p>
             </div>
           </section>
