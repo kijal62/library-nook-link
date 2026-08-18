@@ -77,6 +77,10 @@ function seededState(): State {
     ["E8", "on-break", "stu-ravi", "Ravi Kumar"],
     ["F1", "occupied", "stu-mei", "Mei Chen"],
     ["F5", "occupied", "stu-tom", "Tom Alvarez"],
+    ["G2", "occupied", "stu-dia", "Dia Kapoor"],
+    ["G7", "on-break", "stu-yuki", "Yuki Sato"],
+    ["H4", "occupied", "stu-omar", "Omar Haddad"],
+    ["I3", "occupied", "stu-zoe", "Zoe Bennett"],
   ];
   const now = Date.now();
   const sessions: SessionRecord[] = [];
