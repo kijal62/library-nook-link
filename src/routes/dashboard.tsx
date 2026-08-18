@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Armchair, CircleCheck, CircleDot, PauseCircle, Unlock } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -11,9 +11,13 @@ import { SeatGrid } from "@/components/smartseat/SeatGrid";
 import { StatsCard } from "@/components/smartseat/StatsCard";
 import { StatusLegend } from "@/components/smartseat/StatusLegend";
 import { formatTime, useSeatSync } from "@/lib/smartseat/store";
-import { BREAK_MINUTES, MAX_BREAKS, type Seat } from "@/lib/smartseat/types";
+import { BREAK_MINUTES, FLOORS, MAX_BREAKS, floorOf, type Seat } from "@/lib/smartseat/types";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard")({
+  validateSearch: (search: Record<string, unknown>): { floor?: number } => ({
+    floor: Math.min(3, Math.max(1, Number(search['floor']) || 1)),
+  }),
   head: () => ({
     meta: [
       { title: "Live Seat Map — SeatSync Library" },
@@ -33,13 +37,26 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function DashboardPage() {
-  const { user, seats, stats, mySeat, now, hold, release, tap } = useSeatSync();
+  const { user, seats, mySeat, now, hold, release, tap } = useSeatSync();
+  const { floor = 1 } = Route.useSearch();
   const navigate = useNavigate();
   const [selected, setSelected] = useState<Seat | null>(null);
+  const config = floorOf(floor);
 
   useEffect(() => {
     if (!user) navigate({ to: "/login" });
   }, [user, navigate]);
+
+  const floorSeats = useMemo(() => seats.filter((s) => s.floor === floor), [seats, floor]);
+  const stats = useMemo(
+    () => ({
+      total: floorSeats.length,
+      available: floorSeats.filter((s) => s.status === "available").length,
+      occupied: floorSeats.filter((s) => s.status === "occupied").length,
+      onBreak: floorSeats.filter((s) => s.status === "on-break").length,
+    }),
+    [floorSeats],
+  );
 
   const live = selected ? (seats.find((s) => s.id === selected.id) ?? null) : null;
 
@@ -49,33 +66,32 @@ function DashboardPage() {
     <div className="min-h-screen">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-8">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-semibold">Central Library · Floor 1</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Updates live for every student in the library.
-            </p>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap gap-2">
+            {FLOORS.map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => navigate({ to: "/dashboard", search: { floor: f.id } })}
+                className={cn(
+                  "rounded-full border px-4 py-1.5 text-sm transition-colors",
+                  f.id === floor
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border/70 text-muted-foreground hover:bg-secondary/60",
+                )}
+              >
+                <span className="font-mono text-xs">F{f.id}</span> · {f.name}
+              </button>
+            ))}
           </div>
           <StatusLegend />
         </div>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <StatsCard
-            label="Available"
-            value={stats.available}
-            icon={CircleCheck}
-            tone="available"
-            hint="Ready to claim"
-          />
+          <StatsCard label="Available" value={stats.available} icon={CircleCheck} tone="available" />
           <StatsCard label="Occupied" value={stats.occupied} icon={CircleDot} tone="occupied" />
-          <StatsCard
-            label="On break"
-            value={stats.onBreak}
-            icon={PauseCircle}
-            tone="onbreak"
-            hint={`Auto-release after ${BREAK_MINUTES}m`}
-          />
-          <StatsCard label="Total seats" value={stats.total} icon={Armchair} />
+          <StatsCard label="On break" value={stats.onBreak} icon={PauseCircle} tone="onbreak" />
+          <StatsCard label="Seats" value={stats.total} icon={Armchair} />
         </div>
 
         {mySeat ? (
@@ -86,12 +102,12 @@ function DashboardPage() {
                 <p className="font-display mt-1 text-3xl font-semibold">
                   {mySeat.id}
                   <span className="ml-2 text-sm font-normal text-muted-foreground">
-                    {mySeat.zone}
+                    F{mySeat.floor} · {mySeat.zone}
                   </span>
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  {mySeat.status === "on-break" ? "On break" : "Occupied"} since{" "}
-                  {formatTime(mySeat.occupiedAt)} · breaks used {mySeat.breakCount}/{MAX_BREAKS}
+                  {mySeat.status === "on-break" ? "On break" : "Since"} {formatTime(mySeat.occupiedAt)}{" "}
+                  · breaks {mySeat.breakCount}/{MAX_BREAKS}
                 </p>
               </div>
 
@@ -105,7 +121,7 @@ function DashboardPage() {
                       r.ok ? toast.success(r.message) : toast.error(r.message);
                     }}
                   >
-                    <PauseCircle className="size-4" /> Hold seat
+                    <PauseCircle className="size-4" /> Hold {BREAK_MINUTES}m
                   </Button>
                   <Button
                     variant="destructive"
@@ -114,7 +130,7 @@ function DashboardPage() {
                       r.ok ? toast.success(r.message) : toast.error(r.message);
                     }}
                   >
-                    <Unlock className="size-4" /> Release seat
+                    <Unlock className="size-4" /> Release
                   </Button>
                 </div>
               ) : null}
@@ -136,17 +152,21 @@ function DashboardPage() {
               </div>
             ) : null}
           </section>
-        ) : (
-          <p className="mt-6 rounded-xl border border-border/70 bg-secondary/40 p-4 text-sm text-muted-foreground">
-            You don't hold a seat yet. Pick an available seat below, walk to it, and scan its QR/NFC tag
-            to claim it.
-          </p>
-        )}
+        ) : null}
 
         <section className="mt-8">
-          <h2 className="text-lg font-semibold">Seat map</h2>
+          <div className="flex items-baseline gap-3">
+            <h1 className="font-display text-xl font-semibold">{config.name}</h1>
+            <span className="text-xs text-muted-foreground">{config.tagline}</span>
+          </div>
           <div className="mt-4">
-            <SeatGrid seats={seats} now={now} myUserId={user.id} onSelect={setSelected} />
+            <SeatGrid
+              seats={floorSeats}
+              now={now}
+              myUserId={user.id}
+              onSelect={setSelected}
+              layout={config.layout}
+            />
           </div>
         </section>
       </main>

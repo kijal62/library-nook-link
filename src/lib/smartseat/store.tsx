@@ -10,6 +10,7 @@ import {
 } from "react";
 import {
   BREAK_MINUTES,
+  FLOORS,
   MAX_BREAKS,
   type ActivityEntry,
   type Seat,
@@ -25,17 +26,8 @@ import {
  * Express + MongoDB backend is wired up.
  */
 
-const STORAGE_KEY = "smartseat.state.v1";
-const ROWS = ["A", "B", "C", "D", "E", "F"];
-const COLS = 8;
-const ZONES: Record<string, string> = {
-  A: "Reading Area",
-  B: "Reading Area",
-  C: "Silent Zone",
-  D: "Silent Zone",
-  E: "Group Study",
-  F: "Reference Wing",
-};
+const STORAGE_KEY = "smartseat.state.v2";
+
 
 type State = {
   seats: Seat[];
@@ -50,19 +42,22 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 
 function buildSeats(): Seat[] {
   const seats: Seat[] = [];
-  for (const row of ROWS) {
-    for (let c = 1; c <= COLS; c++) {
-      seats.push({
-        id: `${row}${c}`,
-        zone: ZONES[row] ?? "Reading Area",
-        status: "available",
-        occupiedBy: null,
-        occupiedByName: null,
-        occupiedAt: null,
-        releaseAt: null,
-        breakCount: 0,
-        reported: false,
-      });
+  for (const floor of FLOORS) {
+    for (const row of floor.rows) {
+      for (let c = 1; c <= floor.cols; c++) {
+        seats.push({
+          id: `${row}${c}`,
+          floor: floor.id,
+          zone: floor.zones[row] ?? floor.name,
+          status: "available",
+          occupiedBy: null,
+          occupiedByName: null,
+          occupiedAt: null,
+          releaseAt: null,
+          breakCount: 0,
+          reported: false,
+        });
+      }
     }
   }
   return seats;
@@ -82,6 +77,10 @@ function seededState(): State {
     ["E8", "on-break", "stu-ravi", "Ravi Kumar"],
     ["F1", "occupied", "stu-mei", "Mei Chen"],
     ["F5", "occupied", "stu-tom", "Tom Alvarez"],
+    ["G2", "occupied", "stu-dia", "Dia Kapoor"],
+    ["G7", "on-break", "stu-yuki", "Yuki Sato"],
+    ["H4", "occupied", "stu-omar", "Omar Haddad"],
+    ["I3", "occupied", "stu-zoe", "Zoe Bennett"],
   ];
   const now = Date.now();
   const sessions: SessionRecord[] = [];
