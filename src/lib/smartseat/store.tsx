@@ -26,17 +26,8 @@ import {
  * Express + MongoDB backend is wired up.
  */
 
-const STORAGE_KEY = "smartseat.state.v1";
-const ROWS = ["A", "B", "C", "D", "E", "F"];
-const COLS = 8;
-const ZONES: Record<string, string> = {
-  A: "Reading Area",
-  B: "Reading Area",
-  C: "Silent Zone",
-  D: "Silent Zone",
-  E: "Group Study",
-  F: "Reference Wing",
-};
+const STORAGE_KEY = "smartseat.state.v2";
+
 
 type State = {
   seats: Seat[];
