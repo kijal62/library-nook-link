@@ -10,6 +10,7 @@ import {
 } from "react";
 import {
   BREAK_MINUTES,
+  FLOORS,
   MAX_BREAKS,
   type ActivityEntry,
   type Seat,
