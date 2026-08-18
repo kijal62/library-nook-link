@@ -49,14 +49,15 @@ function buildSeats(): Seat[] {
           id: `${row}${c}`,
           floor: floor.id,
           zone: floor.zones[row] ?? floor.name,
-        status: "available",
-        occupiedBy: null,
-        occupiedByName: null,
-        occupiedAt: null,
-        releaseAt: null,
-        breakCount: 0,
-        reported: false,
-      });
+          status: "available",
+          occupiedBy: null,
+          occupiedByName: null,
+          occupiedAt: null,
+          releaseAt: null,
+          breakCount: 0,
+          reported: false,
+        });
+      }
     }
   }
   return seats;
