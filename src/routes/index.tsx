@@ -52,7 +52,7 @@ function LandingPage() {
             </Link>
             <nav className="ml-auto flex items-center gap-2">
               <Button asChild size="sm">
-                <Link to={user ? "/dashboard" : "/login"} search={user ? { floor: 1 } : undefined}>
+                <Link to={user ? "/dashboard" : "/login"} search={{ floor: 1 }}>
                   {user ? "Live map" : "Sign in"} <MoveRight className="size-4" />
                 </Link>
               </Button>
@@ -102,7 +102,7 @@ function LandingPage() {
                     <Link
                       key={f.id}
                       to={user ? "/dashboard" : "/login"}
-                      search={user ? { floor: f.id } : undefined}
+                      search={{ floor: f.id }}
                       className="group rounded-2xl border border-border/70 bg-card p-6 transition-transform hover:-translate-y-1"
                     >
                       <p className="font-mono text-[10px] tracking-widest uppercase text-primary">
