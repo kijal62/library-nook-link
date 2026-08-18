@@ -42,11 +42,13 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 
 function buildSeats(): Seat[] {
   const seats: Seat[] = [];
-  for (const row of ROWS) {
-    for (let c = 1; c <= COLS; c++) {
-      seats.push({
-        id: `${row}${c}`,
-        zone: ZONES[row] ?? "Reading Area",
+  for (const floor of FLOORS) {
+    for (const row of floor.rows) {
+      for (let c = 1; c <= floor.cols; c++) {
+        seats.push({
+          id: `${row}${c}`,
+          floor: floor.id,
+          zone: floor.zones[row] ?? floor.name,
         status: "available",
         occupiedBy: null,
         occupiedByName: null,
