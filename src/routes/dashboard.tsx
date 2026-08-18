@@ -15,8 +15,8 @@ import { BREAK_MINUTES, FLOORS, MAX_BREAKS, floorOf, type Seat } from "@/lib/sma
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    floor: Math.min(3, Math.max(1, Number(search.floor) || 1)),
+  validateSearch: (search: Record<string, unknown>): { floor?: number } => ({
+    floor: Math.min(3, Math.max(1, Number(search['floor']) || 1)),
   }),
   head: () => ({
     meta: [
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/dashboard")({
 
 function DashboardPage() {
   const { user, seats, mySeat, now, hold, release, tap } = useSeatSync();
-  const { floor } = Route.useSearch();
+  const { floor = 1 } = Route.useSearch();
   const navigate = useNavigate();
   const [selected, setSelected] = useState<Seat | null>(null);
   const config = floorOf(floor);

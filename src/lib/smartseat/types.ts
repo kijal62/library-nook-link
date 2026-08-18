@@ -42,7 +42,7 @@ export const FLOORS: FloorConfig[] = [
   },
 ];
 
-export const floorOf = (id: number) => FLOORS.find((f) => f.id === id) ?? FLOORS[0];
+export const floorOf = (id: number) => FLOORS.find((f) => f.id === id) ?? FLOORS[0]!;
 
 export type Seat = {
   id: string;
