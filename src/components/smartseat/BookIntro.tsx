@@ -23,7 +23,7 @@ export function BookIntro({ onDone }: { onDone: () => void }) {
       onDone();
       return;
     }
-    const t = window.setTimeout(finish, 3900);
+    const t = window.setTimeout(finish, 4900);
     return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
