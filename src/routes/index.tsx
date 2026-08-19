@@ -66,7 +66,10 @@ function LandingPage() {
             <span className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-secondary/50 px-3 py-1 font-mono text-[11px] tracking-widest uppercase text-muted-foreground">
               <Nfc className="size-3.5 text-primary" /> Central Library
             </span>
-            <h1 className="font-display mt-6 text-5xl leading-[1.02] font-semibold sm:text-7xl">
+            <h1
+              className="mt-6 text-5xl leading-[1.02] font-semibold sm:text-7xl"
+              style={{ fontFamily: '"Bricolage Grotesk", ui-sans-serif, system-ui, sans-serif' }}
+            >
               The seat ledger,
               <br />
               <span className="text-primary">live.</span>
