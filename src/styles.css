@@ -193,7 +193,7 @@
   transform-style: preserve-3d;
   animation:
     book-rise 900ms cubic-bezier(0.2, 0.8, 0.25, 1) forwards,
-    book-push 900ms 2.9s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+    book-push 700ms 2.2s cubic-bezier(0.5, 0, 0.2, 1) forwards;
   opacity: 0;
 }
 @keyframes book-rise {
@@ -269,7 +269,7 @@
   border-radius: 0.15rem 0.4rem 0.4rem 0.15rem;
   background: linear-gradient(105deg, transparent 30%, oklch(0.95 0.02 30 / 0.35) 50%, transparent 70%);
   opacity: 0;
-  animation: page-flare 1.5s 2.1s ease-out forwards;
+  animation: page-flare 1s 1.8s ease-out forwards;
   pointer-events: none;
   z-index: 3;
 }
