@@ -273,33 +273,43 @@ export function SeatSyncProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(
-    (email: string, password: string): ActionResult => {
+    async (email: string, password: string): Promise<ActionResult> => {
       if (!email.includes("@") || password.length < 4) {
         return { ok: false, message: "Enter a valid email and a password of 4+ characters." };
       }
-      const isAdmin = email.toLowerCase().startsWith("admin");
-      const localPart = email.split("@")[0] ?? "student";
-      const name = localPart.replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-      commit((prev) => {
-        const id = isAdmin ? "admin-1" : `stu-${localPart.toLowerCase()}`;
-        const held = prev.seats.find((s) => s.occupiedBy === id);
-        return {
-          ...prev,
-          currentUser: {
-            id,
-            name,
-            email,
-            role: isAdmin ? "admin" : "student",
-            currentSeat: held?.id ?? null,
-          },
-        };
-      });
-      return { ok: true, message: isAdmin ? "Signed in as librarian" : `Welcome, ${name}` };
+      try {
+        const { token, user } = await apiLogin(email, password);
+        const currentSeat =
+          stateRef().seats.find((s) => s.occupiedBy === user.id && s.status !== "available")?.id ?? null;
+        setSession(token, user);
+        commit((prev) => ({ ...prev, currentUser: { ...user, currentSeat } }));
+        return { ok: true, message: `Welcome back, ${user.name}` };
+      } catch (err) {
+        return { ok: false, message: err instanceof Error ? err.message : "Sign in failed." };
+      }
+    },
+    [commit],
+  );
+
+  const signup = useCallback(
+    async (email: string, password: string): Promise<ActionResult> => {
+      if (!email.includes("@") || password.length < 4) {
+        return { ok: false, message: "Enter a valid email and a password of 4+ characters." };
+      }
+      try {
+        const { token, user } = await apiSignup(email, password);
+        setSession(token, user);
+        commit((prev) => ({ ...prev, currentUser: { ...user, currentSeat: null } }));
+        return { ok: true, message: `Account created — welcome, ${user.name}` };
+      } catch (err) {
+        return { ok: false, message: err instanceof Error ? err.message : "Sign up failed." };
+      }
     },
     [commit],
   );
 
   const logout = useCallback(() => {
+    clearSession();
     commit((prev) => ({ ...prev, currentUser: null }));
   }, [commit]);
 
