@@ -8,16 +8,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import {
-  BREAK_MINUTES,
-  FLOORS,
-  MAX_BREAKS,
-  type ActivityEntry,
-  type Seat,
-  type SeatStatus,
-  type SessionRecord,
-  type User,
-} from "./types";
+import { clearSession, getStoredUser, login as apiLogin, setSession, signup as apiSignup } from "./api";
+
 
 /**
  * Mock "backend" for the SeatSync prototype.
