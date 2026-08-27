@@ -571,6 +571,7 @@ export function SeatSyncProvider({ children }: { children: ReactNode }) {
       stats,
       mySeat,
       login,
+      signup,
       logout,
       tap,
       hold,
