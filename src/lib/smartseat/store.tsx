@@ -199,7 +199,8 @@ type Ctx = {
   now: number;
   stats: { available: number; occupied: number; onBreak: number; total: number };
   mySeat: Seat | null;
-  login: (email: string, password: string) => ActionResult;
+  login: (email: string, password: string) => Promise<ActionResult>;
+  signup: (email: string, password: string) => Promise<ActionResult>;
   logout: () => void;
   tap: (seatId: string) => ActionResult;
   hold: (seatId: string) => ActionResult;
