@@ -34,21 +34,22 @@ const highlights = [
 ];
 
 function LoginPage() {
-  const { login, user } = useSeatSync();
+  const { login, signup, user } = useSeatSync();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (user) navigate({ to: user.role === "admin" ? "/admin" : "/dashboard" });
   }, [user, navigate]);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting) return;
     setSubmitting(true);
-    const result = login(email.trim(), password);
+    const result = mode === "signin" ? await login(email.trim(), password) : await signup(email.trim(), password);
     if (result.ok) toast.success(result.message);
     else toast.error(result.message);
     setSubmitting(false);
@@ -56,7 +57,7 @@ function LoginPage() {
 
   const quickFill = (nextEmail: string) => {
     setEmail(nextEmail);
-    setPassword("library");
+    setPassword("");
   };
 
   return (
@@ -85,9 +86,9 @@ function LoginPage() {
       </section>
 
       <section className="rounded-2xl border border-border/70 bg-card p-6 shadow-glow sm:p-8">
-        <h2 className="text-xl font-semibold">Sign in</h2>
+        <h2 className="text-xl font-semibold">{mode === "signin" ? "Sign in" : "Create account"}</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Use your college email. Any password of 4+ characters works in this prototype.
+          Use your college email and the password you registered with on the backend.
         </p>
         <form className="mt-6 space-y-4" onSubmit={submit}>
           <div className="space-y-2">
@@ -107,7 +108,7 @@ function LoginPage() {
             <Input
               id="password"
               type="password"
-              autoComplete="current-password"
+              autoComplete={mode === "signup" ? "new-password" : "current-password"}
               placeholder="••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -115,12 +116,26 @@ function LoginPage() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={submitting}>
-            Sign in
+            {mode === "signin" ? "Sign in" : "Create account"}
           </Button>
         </form>
 
+        <div className="mt-6 flex items-center justify-between gap-4 border-t border-border/70 pt-4">
+          <p className="text-xs text-muted-foreground">
+            {mode === "signin" ? "New here?" : "Already registered?"}
+          </p>
+          <Button
+            variant="link"
+            size="sm"
+            className="h-auto p-0"
+            onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+          >
+            {mode === "signin" ? "Create an account" : "Sign in instead"}
+          </Button>
+        </div>
+
         <div className="mt-6 border-t border-border/70 pt-4">
-          <p className="text-xs tracking-wide text-muted-foreground uppercase">Demo accounts</p>
+          <p className="text-xs tracking-wide text-muted-foreground uppercase">Quick-fill demo emails</p>
           <div className="mt-2 flex flex-wrap gap-2">
             <Button variant="secondary" size="sm" onClick={() => quickFill("kiran@college.edu")}>
               Student
@@ -130,7 +145,7 @@ function LoginPage() {
             </Button>
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            Any email starting with “admin” gets the librarian dashboard.
+            These emails must already exist in your backend.
           </p>
         </div>
       </section>
