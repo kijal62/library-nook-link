@@ -580,7 +580,7 @@ export function SeatSyncProvider({ children }: { children: ReactNode }) {
       forceRelease,
       resetDemo,
     };
-  }, [state, now, login, logout, tap, hold, release, report, forceRelease, resetDemo]);
+  }, [state, now, login, signup, logout, tap, hold, release, report, forceRelease, resetDemo]);
 
   return <SeatSyncContext.Provider value={value}>{children}</SeatSyncContext.Provider>;
 }
