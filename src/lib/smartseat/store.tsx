@@ -279,10 +279,10 @@ export function SeatSyncProvider({ children }: { children: ReactNode }) {
       }
       try {
         const { token, user } = await apiLogin(email, password);
-        const currentSeat =
-          stateRef().seats.find((s) => s.occupiedBy === user.id && s.status !== "available")?.id ?? null;
-        setSession(token, user);
-        commit((prev) => ({ ...prev, currentUser: { ...user, currentSeat } }));
+        commit((prev) => {
+          const held = prev.seats.find((s) => s.occupiedBy === user.id && s.status !== "available");
+          return { ...prev, currentUser: { ...user, currentSeat: held?.id ?? null } };
+        });
         return { ok: true, message: `Welcome back, ${user.name}` };
       } catch (err) {
         return { ok: false, message: err instanceof Error ? err.message : "Sign in failed." };
