@@ -61,92 +61,110 @@ function LoginPage() {
   };
 
   return (
-    <main className="mx-auto grid min-h-screen max-w-6xl items-center gap-12 px-4 py-12 lg:grid-cols-2">
-      <section>
-        <span className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-secondary/50 px-3 py-1 text-xs text-muted-foreground">
-          <Armchair className="size-3.5 text-primary" /> Live seat map · Central Library
-        </span>
-        <h1 className="font-display mt-6 text-4xl leading-tight font-semibold sm:text-5xl">
-          Every empty seat, <span className="text-primary">actually available</span>.
-        </h1>
-        <p className="mt-4 max-w-lg text-muted-foreground">
-          SeatSync links each physical desk to a QR/NFC tag, so a seat is only occupied when someone
-          is really sitting there. Take a break, keep your seat for 30 minutes, and the system frees
-          it automatically if you don't come back.
-        </p>
-        <ul className="mt-8 grid gap-3 sm:grid-cols-3">
-          {highlights.map((h) => (
-            <li key={h.title} className="rounded-xl border border-border/70 bg-card p-4">
-              <h.icon className="size-5 text-primary" />
-              <p className="mt-2 text-sm font-medium">{h.title}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{h.text}</p>
-            </li>
-          ))}
-        </ul>
+    <main className="relative grid min-h-screen lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="hidden flex-col justify-between bg-secondary/40 px-10 py-12 lg:flex">
+        <div className="inline-flex items-center gap-2 font-display text-lg font-semibold tracking-tight">
+          <Armchair className="size-6 text-primary" />
+          SeatSync
+        </div>
+        <div>
+          <h1 className="font-display max-w-md text-4xl leading-tight font-semibold">
+            Every empty seat, <span className="text-primary">actually available</span>.
+          </h1>
+          <p className="mt-4 max-w-sm text-sm text-muted-foreground">
+            Claim desks by scanning their QR/NFC tag, hold your spot for 30 minutes, and never guess if a seat is free.
+          </p>
+          <ul className="mt-8 grid gap-4">
+            {highlights.map((h) => (
+              <li key={h.title} className="flex items-start gap-3">
+                <div className="rounded-lg border border-border/70 bg-card p-2">
+                  <h.icon className="size-4 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium">{h.title}</p>
+                  <p className="text-xs text-muted-foreground">{h.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} SeatSync</p>
       </section>
 
-      <section className="rounded-2xl border border-border/70 bg-card p-6 shadow-glow sm:p-8">
-        <h2 className="text-xl font-semibold">{mode === "signin" ? "Sign in" : "Create account"}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Use your college email and the password you registered with on the backend.
-        </p>
-        <form className="mt-6 space-y-4" onSubmit={submit}>
-          <div className="space-y-2">
-            <Label htmlFor="email">College email</Label>
-            <Input
-              id="email"
-              type="email"
-              autoComplete="email"
-              placeholder="anika.rao@college.edu"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+      <section className="flex flex-col justify-center bg-background px-6 py-12 sm:px-12 lg:px-16">
+        <div className="lg:hidden">
+          <div className="mb-8 inline-flex items-center gap-2 font-display text-xl font-semibold tracking-tight">
+            <Armchair className="size-6 text-primary" />
+            SeatSync
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              autoComplete={mode === "signup" ? "new-password" : "current-password"}
-              placeholder="••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <Button type="submit" className="w-full" disabled={submitting}>
-            {mode === "signin" ? "Sign in" : "Create account"}
-          </Button>
-        </form>
-
-        <div className="mt-6 flex items-center justify-between gap-4 border-t border-border/70 pt-4">
-          <p className="text-xs text-muted-foreground">
-            {mode === "signin" ? "New here?" : "Already registered?"}
-          </p>
-          <Button
-            variant="link"
-            size="sm"
-            className="h-auto p-0"
-            onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          >
-            {mode === "signin" ? "Create an account" : "Sign in instead"}
-          </Button>
         </div>
-
-        <div className="mt-6 border-t border-border/70 pt-4">
-          <p className="text-xs tracking-wide text-muted-foreground uppercase">Quick-fill demo emails</p>
-          <div className="mt-2 flex flex-wrap gap-2">
-            <Button variant="secondary" size="sm" onClick={() => quickFill("kiran@college.edu")}>
-              Student
+        <div className="mx-auto w-full max-w-sm">
+          <h2 className="font-display text-2xl font-semibold tracking-tight">
+            {mode === "signin" ? "Welcome back" : "Create account"}
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {mode === "signin"
+              ? "Enter your college credentials to continue."
+              : "Register with your college email to get started."}
+          </p>
+          <form className="mt-8 space-y-4" onSubmit={submit}>
+            <div className="space-y-2">
+              <Label htmlFor="email">College email</Label>
+              <Input
+                id="email"
+                type="email"
+                autoComplete="email"
+                placeholder="anika.rao@college.edu"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                autoComplete={mode === "signup" ? "new-password" : "current-password"}
+                placeholder="••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={submitting}>
+              {mode === "signin" ? "Sign in" : "Create account"}
             </Button>
-            <Button variant="secondary" size="sm" onClick={() => quickFill("admin@college.edu")}>
-              Librarian
+          </form>
+
+          <div className="mt-6 flex items-center justify-between gap-4 border-t border-border/70 pt-4">
+            <p className="text-sm text-muted-foreground">
+              {mode === "signin" ? "New here?" : "Already registered?"}
+            </p>
+            <Button
+              variant="link"
+              size="sm"
+              className="h-auto p-0"
+              onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+            >
+              {mode === "signin" ? "Create an account" : "Sign in instead"}
             </Button>
           </div>
-          <p className="mt-2 text-xs text-muted-foreground">
-            These emails must already exist in your backend.
-          </p>
+
+          <div className="mt-6 border-t border-border/70 pt-4">
+            <p className="text-xs tracking-wide text-muted-foreground uppercase">Quick-fill demo emails</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <Button variant="secondary" size="sm" onClick={() => quickFill("kiran@college.edu")}>
+                Student
+              </Button>
+              <Button variant="secondary" size="sm" onClick={() => quickFill("admin@college.edu")}>
+                Librarian
+              </Button>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              These emails must already exist in your backend.
+            </p>
+          </div>
         </div>
       </section>
     </main>
