@@ -8,7 +8,6 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { clearSession, getStoredUser, login as apiLogin, setSession, signup as apiSignup } from "./api";
 import {
   BREAK_MINUTES,
   FLOORS,
@@ -19,6 +18,7 @@ import {
   type SessionRecord,
   type User,
 } from "./types";
+
 
 
 
