@@ -31,7 +31,14 @@ async function apiFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
   const token = getToken();
   if (token) headers.set("Authorization", `Bearer ${token}`);
 
-  const res = await fetch(url, { ...init, headers });
+  let res: Response;
+  try {
+    res = await fetch(url, { ...init, headers });
+  } catch {
+    throw new Error(
+      `Can't reach the backend at ${API_BASE}. Make sure it is running and allows CORS from ${typeof window !== "undefined" ? window.location.origin : "this origin"}.`,
+    );
+  }
   if (!res.ok) {
     let message = `Request failed (${res.status})`;
     try {
