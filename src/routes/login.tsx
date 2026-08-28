@@ -55,10 +55,22 @@ function LoginPage() {
     setSubmitting(false);
   };
 
-  const quickFill = (nextEmail: string) => {
+  const quickLogin = async (nextEmail: string) => {
     setEmail(nextEmail);
-    setPassword("");
+    setPassword("demo");
+    const result = await login(nextEmail, "demo");
+    if (result.ok) toast.success(result.message);
+    else toast.error(result.message);
   };
+
+  const quickSignup = async (nextEmail: string) => {
+    setEmail(nextEmail);
+    setPassword("demo");
+    const result = await signup(nextEmail, "demo");
+    if (result.ok) toast.success(result.message);
+    else toast.error(result.message);
+  };
+
 
   return (
     <main className="relative grid min-h-screen lg:grid-cols-[1.1fr_0.9fr]">
