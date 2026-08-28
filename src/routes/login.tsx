@@ -55,10 +55,22 @@ function LoginPage() {
     setSubmitting(false);
   };
 
-  const quickFill = (nextEmail: string) => {
+  const quickLogin = async (nextEmail: string) => {
     setEmail(nextEmail);
-    setPassword("");
+    setPassword("demo");
+    const result = await login(nextEmail, "demo");
+    if (result.ok) toast.success(result.message);
+    else toast.error(result.message);
   };
+
+  const quickSignup = async (nextEmail: string) => {
+    setEmail(nextEmail);
+    setPassword("demo");
+    const result = await signup(nextEmail, "demo");
+    if (result.ok) toast.success(result.message);
+    else toast.error(result.message);
+  };
+
 
   return (
     <main className="relative grid min-h-screen lg:grid-cols-[1.1fr_0.9fr]">
@@ -154,16 +166,17 @@ function LoginPage() {
           <div className="mt-6 border-t border-border/70 pt-4">
             <p className="text-xs tracking-wide text-muted-foreground uppercase">Quick-fill demo emails</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              <Button variant="secondary" size="sm" onClick={() => quickFill("kiran@college.edu")}>
+              <Button variant="secondary" size="sm" onClick={() => quickLogin("kiran@college.edu")}>
                 Student
               </Button>
-              <Button variant="secondary" size="sm" onClick={() => quickFill("admin@college.edu")}>
+              <Button variant="secondary" size="sm" onClick={() => quickLogin("admin@college.edu")}>
                 Librarian
               </Button>
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
-              These emails must already exist in your backend.
+              No backend needed — these demo accounts sign in instantly.
             </p>
+
           </div>
         </div>
       </section>
