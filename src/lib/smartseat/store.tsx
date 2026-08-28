@@ -219,9 +219,20 @@ export function SeatSyncProvider({ children }: { children: ReactNode }) {
 
   // Hydrate from storage on the client only (avoids SSR mismatch).
   useEffect(() => {
-    const stored = getStoredUser();
-    setState({ ...load(), currentUser: stored });
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.localStorage.getItem(USER_KEY);
+      if (raw) {
+        const user = JSON.parse(raw) as User;
+        setState((prev) => ({ ...load(), currentUser: user }));
+        return;
+      }
+    } catch {
+      /* ignore corrupt user */
+    }
+    setState(load());
   }, []);
+
 
   const commit = useCallback((updater: (prev: State) => State) => {
     setState((prev) => {
