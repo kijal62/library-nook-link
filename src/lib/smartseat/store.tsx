@@ -30,6 +30,8 @@ import {
  */
 
 const STORAGE_KEY = "smartseat.state.v2";
+const USER_KEY = "seatsync_user";
+
 
 
 type State = {
