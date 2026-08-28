@@ -285,23 +285,39 @@ export function SeatSyncProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const mockUserFromEmail = useCallback((email: string): User => {
+    const role = email.toLowerCase().startsWith("admin") ? "admin" : "student";
+    const name = email.split("@")[0]!.replace(/[._]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+    return {
+      id: `usr-${email.split("@")[0]!.toLowerCase().replace(/[^a-z0-9]/g, "-")}`,
+      name,
+      email: email.toLowerCase(),
+      role,
+      currentSeat: null,
+    };
+  }, []);
+
+  const persistUser = useCallback((user: User | null) => {
+    if (typeof window === "undefined") return;
+    if (user) window.localStorage.setItem(USER_KEY, JSON.stringify(user));
+    else window.localStorage.removeItem(USER_KEY);
+  }, []);
+
   const login = useCallback(
     async (email: string, password: string): Promise<ActionResult> => {
       if (!email.includes("@") || password.length < 4) {
         return { ok: false, message: "Enter a valid email and a password of 4+ characters." };
       }
-      try {
-        const { token, user } = await apiLogin(email, password);
-        commit((prev) => {
-          const held = prev.seats.find((s) => s.occupiedBy === user.id && s.status !== "available");
-          return { ...prev, currentUser: { ...user, currentSeat: held?.id ?? null } };
-        });
-        return { ok: true, message: `Welcome back, ${user.name}` };
-      } catch (err) {
-        return { ok: false, message: err instanceof Error ? err.message : "Sign in failed." };
-      }
+      const user = mockUserFromEmail(email);
+      commit((prev) => {
+        const held = prev.seats.find((s) => s.occupiedBy === user.id && s.status !== "available");
+        const withSeat = { ...user, currentSeat: held?.id ?? null };
+        persistUser(withSeat);
+        return { ...prev, currentUser: withSeat };
+      });
+      return { ok: true, message: `Welcome back, ${user.name}` };
     },
-    [commit],
+    [commit, mockUserFromEmail, persistUser],
   );
 
   const signup = useCallback(
@@ -309,22 +325,19 @@ export function SeatSyncProvider({ children }: { children: ReactNode }) {
       if (!email.includes("@") || password.length < 4) {
         return { ok: false, message: "Enter a valid email and a password of 4+ characters." };
       }
-      try {
-        const { token, user } = await apiSignup(email, password);
-        setSession(token, user);
-        commit((prev) => ({ ...prev, currentUser: { ...user, currentSeat: null } }));
-        return { ok: true, message: `Account created — welcome, ${user.name}` };
-      } catch (err) {
-        return { ok: false, message: err instanceof Error ? err.message : "Sign up failed." };
-      }
+      const user = mockUserFromEmail(email);
+      persistUser(user);
+      commit((prev) => ({ ...prev, currentUser: user }));
+      return { ok: true, message: `Account created — welcome, ${user.name}` };
     },
-    [commit],
+    [commit, mockUserFromEmail, persistUser],
   );
 
   const logout = useCallback(() => {
-    clearSession();
+    persistUser(null);
     commit((prev) => ({ ...prev, currentUser: null }));
-  }, [commit]);
+  }, [commit, persistUser]);
+
 
   const tap = useCallback(
     (seatId: string): ActionResult =>
